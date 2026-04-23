@@ -1,0 +1,165 @@
+/* Print-specific styles for Reports page */
+
+.print-only {
+  display: none !important;
+}
+
+@media print {
+  /* Hide all non-report elements */
+  .sidebar,
+  .navbar,
+  .navigation,
+  .header,
+  .footer,
+  .reporting-form,
+  .reporting-actions,
+  .reporting-alert,
+  button:not(.print-allowed),
+  .screen-only {
+    display: none !important;
+  }
+  
+  /* Show print-only elements */
+  .print-only {
+    display: block !important;
+  }
+  
+  /* Reset page layout for printing */
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    color: #333 !important;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  /* Main content adjustments */
+  .main-content,
+  .content-wrapper,
+  .reporting-tab {
+    margin: 0 !important;
+    padding: 20px !important;
+    width: 100% !important;
+    max-width: none !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+  
+  /* Printable report content */
+  .printable-report-content {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+  }
+  
+  /* Report header styling */
+  .report-header {
+    margin-bottom: 30px !important;
+    padding-bottom: 15px !important;
+    border-bottom: 2px solid #333 !important;
+  }
+  
+  .report-header h1 {
+    font-size: 24pt !important;
+    color: #333 !important;
+    margin-bottom: 10px !important;
+  }
+  
+  .report-header p {
+    font-size: 12pt !important;
+    color: #666 !important;
+    margin-bottom: 5px !important;
+  }
+  
+  /* KPI Cards adjustments */
+  .reporting-grid-kpi {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    gap: 10px !important;
+    margin-bottom: 25px !important;
+  }
+  
+  .reporting-kpi-card {
+    border: 1px solid #ddd !important;
+    border-radius: 5px !important;
+    padding: 10px !important;
+    background: #f9f9f9 !important;
+    text-align: center !important;
+    page-break-inside: avoid !important;
+  }
+  
+  .reporting-kpi-title {
+    font-size: 10pt !important;
+    color: #666 !important;
+    margin-bottom: 5px !important;
+  }
+  
+  .reporting-kpi-value {
+    font-size: 16pt !important;
+    font-weight: bold !important;
+    color: #333 !important;
+  }
+  
+  /* Chart panels adjustments */
+  .reporting-grid-two {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+  
+  .reporting-panel {
+    border: 1px solid #ddd !important;
+    border-radius: 5px !important;
+    padding: 15px !important;
+    background: #f9f9f9 !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 20px !important;
+  }
+  
+  .reporting-panel h3 {
+    font-size: 14pt !important;
+    color: #333 !important;
+    margin-bottom: 10px !important;
+  }
+  
+  /* Chart container adjustments */
+  .reporting-chart-wrap {
+    height: 250px !important;
+    width: 100% !important;
+  }
+  
+  .reporting-chart-wrap canvas {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+  
+  /* Force page breaks where needed */
+  .page-break-before {
+    page-break-before: always !important;
+  }
+  
+  .page-break-after {
+    page-break-after: always !important;
+  }
+  
+  .page-break-avoid {
+    page-break-inside: avoid !important;
+  }
+  
+  /* Color adjustments for better print visibility */
+  * {
+    color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+  }
+}
+
+/* Screen-specific styles */
+@media screen {
+  .print-only {
+    display: none !important;
+  }
+  
+  .screen-only {
+    display: block !important;
+  }
+}
