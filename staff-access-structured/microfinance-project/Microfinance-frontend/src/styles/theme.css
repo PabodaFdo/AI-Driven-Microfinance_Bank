@@ -1,0 +1,391 @@
+/* ===================================================
+   MICROFINANCE PORTAL - THEME SYSTEM
+   Royal Blue Identity with Light/Dark Mode Support
+   =================================================== */
+
+/* Base Root Variables - Applied to :root for consistency */
+:root {
+  /* Animation and Transition Settings */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.4s ease;
+  --transition-theme: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+
+  /* Typography */
+  --font-family-base: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+}
+
+/* ===================================================
+   LIGHT THEME (Default)
+   =================================================== */
+[data-theme="light"], :root {
+  /* Background Colors */
+  --bg: #F1F5F9;
+  --bg-alt: #F8FAFC;
+
+  /* Surface Colors */
+  --surface: #FFFFFF;
+  --surface-2: #F8FAFC;
+  --surface-3: #F1F5F9;
+  --surface-alt: #FEFEFE;
+  --surface-hover: #F9FAFB;
+
+  /* Text Colors */
+  --text: #0F172A;
+  --text-muted: #64748B;
+  --text-light: #94A3B8;
+  --text-inverse: #FFFFFF;
+
+  /* Border Colors */
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+  --border-strong: #CBD5E1;
+
+  /* Primary Colors (Royal Blue Family) */
+  --primary: #1358FF;
+  --primary-hover: #0D47D9;
+  --primary-active: #0E2272;
+  --primary-light: #4169E1;
+  --primary-soft: #EEF2FF;
+  --primary-subtle: rgba(19, 88, 255, 0.1);
+
+  /* Sidebar Colors (Royal Blue Identity) */
+  --sidebar-bg: #1A3A8F;
+  --sidebar-card: #1F45A8;
+  --sidebar-active: #2952C8;
+  --sidebar-hover: #1E3FA0;
+  --sidebar-text: #FFFFFF;
+  --sidebar-text-muted: #9AB3E8;
+  --sidebar-border: #1F45A8;
+  --sidebar-divider: #243766;
+
+  /* Accent Colors */
+  --accent: #02C39A;
+  --accent-hover: #059669;
+  --accent-soft: #D1FAE5;
+
+  /* Semantic Colors */
+  --success: #059669;
+  --success-hover: #047857;
+  --success-soft: #D1FAE5;
+  --success-border: #6EE7B7;
+
+  --warning: #D97706;
+  --warning-hover: #B45309;
+  --warning-soft: #FEF3C7;
+  --warning-border: #FDE68A;
+
+  --danger: #DC2626;
+  --danger-hover: #B91C1C;
+  --danger-soft: #FEE2E2;
+  --danger-border: #FCA5A5;
+
+  --info: #0EA5E9;
+  --info-hover: #0284C7;
+  --info-soft: #E0F2FE;
+  --info-border: #7DD3FC;
+
+  /* Interactive Colors */
+  --interactive-hover: #F9FAFB;
+  --interactive-active: #F3F4F6;
+
+  /* Input Colors */
+  --input-bg: #FFFFFF;
+  --input-border: #D1D5DB;
+  --input-border-focus: #1358FF;
+  --input-text: #111827;
+  --input-placeholder: #9CA3AF;
+  --input-disabled-bg: #F9FAFB;
+  --input-disabled-text: #9CA3AF;
+
+  /* Table Colors */
+  --table-header-bg: #F9FAFB;
+  --table-header-text: #374151;
+  --table-row-hover: #F9FAFB;
+  --table-row-stripe: #FEFEFE;
+  --table-border: #E5E7EB;
+
+  /* Modal/Dropdown Colors */
+  --modal-bg: #FFFFFF;
+  --modal-overlay: rgba(0, 0, 0, 0.5);
+  --dropdown-bg: #FFFFFF;
+  --dropdown-border: #E5E7EB;
+  --dropdown-hover: #F9FAFB;
+
+  /* Badge Colors */
+  --badge-neutral-bg: #F3F4F6;
+  --badge-neutral-text: #374151;
+  --badge-primary-bg: #DBEAFE;
+  --badge-primary-text: #1E40AF;
+
+  /* Chart Colors */
+  --chart-bg: #FFFFFF;
+  --chart-grid: #F3F4F6;
+  --chart-text: #6B7280;
+
+  /* Scrollbar */
+  --scrollbar-track: #F1F5F9;
+  --scrollbar-thumb: #CBD5E1;
+  --scrollbar-thumb-hover: #9CA3AF;
+
+  /* Focus Ring */
+  --focus-ring: 0 0 0 3px rgba(19, 88, 255, 0.1);
+}
+
+/* ===================================================
+   DARK THEME - "Royal Blue Dashboard at Night"
+   =================================================== */
+[data-theme="dark"] {
+  /* Background Colors */
+  --bg: #0B1226;
+  --bg-alt: #0F1629;
+
+  /* Surface Colors */
+  --surface: #111B36;
+  --surface-2: #162347;
+  --surface-3: #1C2B57;
+  --surface-alt: #1A2447;
+  --surface-hover: #1E2A4A;
+
+  /* Text Colors */
+  --text: #EAF1FF;
+  --text-muted: #A8B8DB;
+  --text-light: #8A9BC6;
+  --text-inverse: #0F172A;
+
+  /* Border Colors */
+  --border: #243766;
+  --border-light: #1E3055;
+  --border-strong: #2D4374;
+
+  /* Primary Colors (Brighter for Dark) */
+  --primary: #6EA8FF;
+  --primary-hover: #8BB8FF;
+  --primary-active: #9AC3FF;
+  --primary-light: #A5CDFF;
+  --primary-soft: rgba(110, 168, 255, 0.14);
+  --primary-subtle: rgba(110, 168, 255, 0.08);
+
+  /* Sidebar Colors (Enhanced Royal Blue for Dark) */
+  --sidebar-bg: #142F80;
+  --sidebar-card: #1A3A8F;
+  --sidebar-active: #2952C8;
+  --sidebar-hover: #2146AE;
+  --sidebar-text: #F4F8FF;
+  --sidebar-text-muted: #B7C9F3;
+  --sidebar-border: #243766;
+  --sidebar-divider: #2D4374;
+
+  /* Accent Colors */
+  --accent: #34D399;
+  --accent-hover: #4ADE80;
+  --accent-soft: rgba(52, 211, 153, 0.14);
+
+  /* Semantic Colors (Adjusted for Dark) */
+  --success: #4ADE80;
+  --success-hover: #22C55E;
+  --success-soft: rgba(74, 222, 128, 0.14);
+  --success-border: rgba(74, 222, 128, 0.3);
+
+  --warning: #FBBF24;
+  --warning-hover: #F59E0B;
+  --warning-soft: rgba(251, 191, 36, 0.14);
+  --warning-border: rgba(251, 191, 36, 0.3);
+
+  --danger: #F87171;
+  --danger-hover: #EF4444;
+  --danger-soft: rgba(248, 113, 113, 0.14);
+  --danger-border: rgba(248, 113, 113, 0.3);
+
+  --info: #38BDF8;
+  --info-hover: #0EA5E9;
+  --info-soft: rgba(56, 189, 248, 0.14);
+  --info-border: rgba(56, 189, 248, 0.3);
+
+  /* Interactive Colors */
+  --interactive-hover: #1E2A4A;
+  --interactive-active: #243052;
+
+  /* Input Colors */
+  --input-bg: #1C2B57;
+  --input-border: #2D4374;
+  --input-border-focus: #6EA8FF;
+  --input-text: #EAF1FF;
+  --input-placeholder: #7B8DB8;
+  --input-disabled-bg: #162347;
+  --input-disabled-text: #7B8DB8;
+
+  /* Table Colors */
+  --table-header-bg: #162347;
+  --table-header-text: #D1DEF2;
+  --table-row-hover: #1A2447;
+  --table-row-stripe: #131F3B;
+  --table-border: #243766;
+
+  /* Modal/Dropdown Colors */
+  --modal-bg: #111B36;
+  --modal-overlay: rgba(0, 0, 0, 0.7);
+  --dropdown-bg: #162347;
+  --dropdown-border: #243766;
+  --dropdown-hover: #1A2447;
+
+  /* Badge Colors */
+  --badge-neutral-bg: rgba(168, 184, 219, 0.14);
+  --badge-neutral-text: #D1DEF2;
+  --badge-primary-bg: rgba(110, 168, 255, 0.14);
+  --badge-primary-text: #A5CDFF;
+
+  /* Chart Colors */
+  --chart-bg: #111B36;
+  --chart-grid: #1E3055;
+  --chart-text: #A8B8DB;
+
+  /* Scrollbar */
+  --scrollbar-track: #162347;
+  --scrollbar-thumb: #2D4374;
+  --scrollbar-thumb-hover: #3A5488;
+
+  /* Focus Ring */
+  --focus-ring: 0 0 0 3px rgba(110, 168, 255, 0.2);
+
+  /* Enhanced shadows for dark mode */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.6), 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.7), 0 10px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* ===================================================
+   GLOBAL THEME TRANSITIONS
+   =================================================== */
+* {
+  transition:
+    background-color var(--transition-theme),
+    border-color var(--transition-theme),
+    color var(--transition-theme),
+    box-shadow var(--transition-theme);
+}
+
+/* Exclude layout-affecting properties from transitions */
+*:not(.no-theme-transition) {
+  transition-property: background-color, border-color, color, box-shadow, fill, stroke;
+  transition-duration: var(--transition-theme);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===================================================
+   SCROLLBAR THEMING
+   =================================================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+  border: 2px solid var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* Firefox scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* ===================================================
+   THEME-AWARE UTILITY CLASSES
+   =================================================== */
+.theme-surface {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+.theme-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.theme-accent {
+  background-color: var(--accent);
+  color: white;
+}
+
+.theme-border {
+  border-color: var(--border);
+}
+
+.theme-text {
+  color: var(--text);
+}
+
+.theme-text-muted {
+  color: var(--text-muted);
+}
+
+.theme-shadow {
+  box-shadow: var(--shadow);
+}
+
+/* ===================================================
+   FOCUS AND ACCESSIBILITY
+   =================================================== */
+*:focus {
+  outline: none;
+}
+
+*:focus-visible {
+  box-shadow: var(--focus-ring);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: #000000;
+    --text-muted: #000000;
+  }
+
+  [data-theme="dark"] {
+    --border: #ffffff;
+    --text-muted: #ffffff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

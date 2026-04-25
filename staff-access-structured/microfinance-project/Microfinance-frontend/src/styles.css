@@ -1,0 +1,498 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'DM Sans', 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  transition: background-color var(--transition-theme), color var(--transition-theme);
+}
+
+input, textarea, select, button {
+  font: inherit;
+}
+
+/* Shared portal sidebar background used across all pages via App Sidebar */
+.portal-sidebar {
+  isolation: isolate;
+  background:
+    linear-gradient(160deg, #0f2a7a 0%, #10296d 45%, #0a1e54 100%);
+}
+
+.portal-sidebar > *:not(.portal-sidebar-bg-layer) {
+  position: relative;
+  z-index: 1;
+}
+
+.portal-sidebar-bg-layer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.portal-sidebar-bg-layer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 18% 20%, rgba(80, 132, 255, 0.18) 0%, transparent 52%),
+    radial-gradient(ellipse at 80% 80%, rgba(63, 103, 228, 0.16) 0%, transparent 56%);
+  animation: portalSidebarPulse 9s ease-in-out infinite alternate;
+}
+
+.portal-sidebar-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(142, 170, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(142, 170, 255, 0.08) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.22;
+  animation: portalSidebarGridShift 26s linear infinite;
+}
+
+.portal-sidebar-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(36px);
+  opacity: 0.2;
+  animation: portalSidebarFloat 18s linear infinite;
+}
+
+.portal-sidebar-orb-a {
+  width: 150px;
+  height: 150px;
+  top: -32px;
+  left: -34px;
+  background: #5b8dff;
+}
+
+.portal-sidebar-orb-b {
+  width: 120px;
+  height: 120px;
+  right: -22px;
+  top: 34%;
+  background: #4774de;
+  animation-delay: -5s;
+}
+
+.portal-sidebar-orb-c {
+  width: 136px;
+  height: 136px;
+  left: 22%;
+  bottom: -40px;
+  background: #2f5ccf;
+  animation-delay: -10s;
+}
+
+.portal-sidebar-particles {
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.58) 0.9px, transparent 1.1px),
+    radial-gradient(circle, rgba(184, 211, 255, 0.45) 1px, transparent 1.25px);
+  background-size: 84px 84px, 132px 132px;
+  background-position: 0 0, 32px 64px;
+  animation: portalSidebarParticles 22s linear infinite;
+}
+
+@keyframes portalSidebarPulse {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.04);
+  }
+}
+
+@keyframes portalSidebarFloat {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(9px, -13px) scale(1.04);
+  }
+  66% {
+    transform: translate(-8px, 11px) scale(0.96);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+@keyframes portalSidebarGridShift {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 36px 36px;
+  }
+}
+
+@keyframes portalSidebarParticles {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-12px);
+  }
+}
+
+/* Theme-aware scrollbar styles are now in theme.css */
+
+.content-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-md);
+  transition: background-color var(--transition-theme), border-color var(--transition-theme);
+}
+
+.profile-page-root {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.25rem 0.25rem 1rem;
+}
+
+.profile-grid-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+@media (max-width: 1100px) {
+  .profile-grid-two-col {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.reporting-page {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dashboard-page {
+  padding-top: 18px;
+}
+
+.reporting-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.reporting-header h1 {
+  margin: 0;
+  color: var(--text);
+  font-size: 28px;
+}
+
+.reporting-header p {
+  margin: 4px 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.reporting-grid {
+  display: grid;
+  gap: 16px;
+}
+
+.reporting-grid-kpi {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-bottom: 16px;
+}
+
+.reporting-grid-two {
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  margin-bottom: 16px;
+}
+
+.reporting-kpi-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+  transition: background-color var(--transition-theme), border-color var(--transition-theme);
+}
+
+.reporting-kpi-icon {
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.reporting-kpi-title {
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 6px;
+  text-transform: capitalize;
+}
+
+.reporting-kpi-value {
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.reporting-panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: var(--shadow-md);
+  transition: background-color var(--transition-theme), border-color var(--transition-theme);
+}
+
+.reporting-panel h3 {
+  margin: 0 0 12px;
+  font-size: 18px;
+  color: var(--text);
+}
+
+.reporting-chart-wrap {
+  height: 300px;
+  background: var(--chart-bg);
+  border-radius: var(--radius);
+}
+
+.reporting-chart-lg {
+  height: 340px;
+}
+
+.reporting-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.reporting-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+.reporting-btn:hover {
+  background: var(--primary-hover);
+}
+
+.reporting-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.reporting-btn-secondary {
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+}
+
+.reporting-btn-secondary:hover {
+  background: var(--surface-2);
+}
+
+.reporting-btn-danger {
+  background: var(--danger);
+}
+
+.reporting-btn-danger:hover {
+  background: var(--danger-hover);
+}
+
+.reporting-alert {
+  background: var(--danger-soft);
+  border: 1px solid var(--danger-border);
+  color: var(--danger);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.reporting-success {
+  background: var(--success-soft);
+  border: 1px solid var(--success-border);
+  color: var(--success);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+
+.reporting-empty {
+  color: var(--text-muted);
+  text-align: center;
+  padding: 22px;
+}
+
+.reporting-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.reporting-tab {
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text-muted);
+  border-radius: 10px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.reporting-tab.active {
+  border-color: var(--primary);
+  background: var(--primary-soft);
+  color: var(--primary);
+}
+
+.reporting-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.reporting-form-field label {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.reporting-form-field input,
+.reporting-form-field select {
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  border-radius: 8px;
+  padding: 9px 10px;
+  color: var(--input-text);
+  transition: border-color var(--transition-fast), background-color var(--transition-theme);
+}
+
+.reporting-form-field input:focus,
+.reporting-form-field select:focus {
+  outline: none;
+  border-color: var(--input-border-focus);
+  box-shadow: var(--focus-ring);
+}
+
+.reporting-badge {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--badge-primary-text);
+  background: var(--badge-primary-bg);
+  text-transform: uppercase;
+}
+
+.reporting-table-wrap {
+  overflow-x: auto;
+}
+
+.reporting-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+}
+
+.reporting-table th,
+.reporting-table td {
+  border-bottom: 1px solid var(--table-border);
+  text-align: left;
+  padding: 10px;
+  font-size: 14px;
+  transition: background-color var(--transition-fast);
+}
+
+.reporting-table th {
+  color: var(--table-header-text);
+  background: var(--table-header-bg);
+}
+
+.reporting-table td {
+  color: var(--text);
+}
+
+.reporting-table tbody tr:hover {
+  background: var(--table-row-hover);
+}
+
+.reporting-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reporting-icon-btn {
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  border-radius: 8px;
+  color: var(--text-muted);
+  padding: 5px;
+  cursor: pointer;
+  display: inline-flex;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.reporting-icon-btn:hover {
+  background: var(--interactive-hover);
+  color: var(--text);
+}
+
+.reporting-icon-btn.danger {
+  color: var(--danger);
+  border-color: var(--danger-border);
+}
+
+.reporting-icon-btn.danger:hover {
+  background: var(--danger-soft);
+}
