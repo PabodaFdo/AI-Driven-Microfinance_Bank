@@ -1,0 +1,49 @@
+# Frontend dependencies
+microfinance-project/Microfinance-frontend/node_modules/
+microfinance-project/Microfinance-frontend/dist/
+microfinance-project/Microfinance-frontend/.vite/
+
+# Backend build artifacts
+microfinance-project/Microfinance-backend/target/
+microfinance-project/Microfinance-backend/.classpath
+microfinance-project/Microfinance-backend/.project
+microfinance-project/Microfinance-backend/.settings/
+microfinance-project/Microfinance-backend/*.iml
+microfinance-project/Microfinance-backend/.idea/
+
+# Maven
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Maven tools (not needed in repo)
+microfinance-project/Microfinance-backend/.tools/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.bak
