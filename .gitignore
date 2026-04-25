@@ -47,3 +47,6 @@ logs/
 # Temporary files
 *.tmp
 *.bak
+
+microfinance-ai/data/
+microfinance-ai/models/
