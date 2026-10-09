@@ -1,4 +1,4 @@
-﻿# AI-Driven Microfinance Loan Risk Prediction and Recommendation System
+# AI-Driven Microfinance Loan Risk Prediction and Recommendation System
 
 ## Project Overview
 This project delivers an integrated microfinance platform that combines a React frontend, a Spring Boot backend, and a Python AI service to support loan processing, risk evaluation, recommendation generation, repayment tracking, and reporting.
@@ -21,20 +21,42 @@ Microfinance institutions often rely on manual, time-consuming loan review metho
 | LOAN_OFFICER | Manages applicants, applications, risk/recommendation workflows |
 | BANK_MANAGER | Reviews outcomes and supports approval decisions |
 
+Access to every API endpoint and frontend page is restricted by role, so each staff member only sees and performs the operations that belong to their responsibilities.
+
 ## Key Features and Modules
-- Staff Management and Access Control (JWT authentication, RBAC, profile/password operations)
-- Applicant and Application Workflow (registration, application lifecycle, status updates)
-- Loan Risk Assessment (risk scoring and classification support)
-- Recommendation Engine (loan term/amount/rate suggestions)
-- Repayment Management (schedule generation, payment recording, overdue handling)
-- Reporting and Analytics Dashboard (dashboard metrics, report templates, filtered reports)
+
+### 1. Staff Management and Access Control
+Staff members authenticate with a username and password, and the backend issues a signed JWT token that the frontend attaches to every later request. Role-based access control (RBAC) then decides which endpoints and pages each role can use. Admins can create, update, and deactivate staff accounts, and every staff member can view their own profile and change their password.
+
+### 2. Applicant and Application Workflow
+Loan officers register applicants and store their personal, financial, and employment details in one central place. Each applicant can have one or more loan applications, and every application moves through a defined lifecycle (for example submitted, under review, approved, or rejected). Status updates are recorded so the history of each application can be traced.
+
+### 3. Loan Risk Assessment
+For each application, the backend sends the applicant and loan attributes to the AI service and receives a risk probability and a risk category. The result is stored with the application, so officers and managers can review the assessment later without recalculating it. This replaces inconsistent manual judgment with a repeatable, data-driven score.
+
+### 4. Recommendation Engine
+Alongside the risk score, the system suggests a safer loan configuration: a recommended loan amount, repayment term, and interest rate. Officers and managers can compare the requested terms against the recommended ones and use the difference to negotiate or adjust an offer before a decision is made.
+
+### 5. Repayment Management
+When a loan is approved, the system generates a repayment schedule with installment dates and amounts. Staff record payments as they are received, and the system updates the balance of each installment. Installments that pass their due date without payment are flagged as overdue, giving the institution early visibility into late-paying borrowers.
+
+### 6. Reporting and Analytics Dashboard
+The dashboard shows key portfolio and operational metrics through charts and summary cards (built with Chart.js). Managers can also use report templates and apply filters, such as date range or status, to produce focused reports on applications, risk levels, repayments, and overdue loans.
 
 ## AI and ML Component
-The AI service in `microfinance-ai` exposes REST endpoints that receive applicant and loan attributes, preprocess the request, apply trained model artifacts from `microfinance-ai/models`, and return:
-- Risk probability and risk category
-- AI-supported approval/denial guidance
-- Recommendation values (amount, term, rate)
-- SHAP-based explanation items for interpretability
+The AI service in `microfinance-ai` is a FastAPI application served by Uvicorn. Its pipeline for each request is:
+
+1. **Receive:** A REST endpoint accepts applicant and loan attributes from the backend as JSON.
+2. **Preprocess:** The request is validated and transformed into the same feature format used during training (encoding, scaling, and feature preparation with Pandas and NumPy).
+3. **Predict:** Trained model artifacts from `microfinance-ai/models` are loaded with Joblib and applied to the prepared data. The models are built with Scikit-learn and XGBoost.
+4. **Explain:** SHAP is used to calculate how much each input feature pushed the prediction up or down, so the result is not a black box.
+5. **Respond:** The service returns:
+   - Risk probability and risk category
+   - AI-supported approval/denial guidance
+   - Recommendation values (amount, term, rate)
+   - SHAP-based explanation items for interpretability
+
+The explanation items let loan officers and managers see *why* an application was rated risky (for example, a high debt-to-income ratio or a short employment history), which supports transparent and defensible lending decisions. The AI output is decision support only; the final decision remains with the bank manager.
 
 ## Technology Stack
 ### Frontend
@@ -81,21 +103,27 @@ AIML Integrated/
 ```
 
 ## Complete System Workflow
-1. Staff logs in through the frontend.
-2. Backend validates credentials and issues JWT token.
-3. Loan officer manages applicant and application data.
-4. Backend triggers risk assessment using AI endpoints.
-5. Backend stores risk results and generates recommendation records.
-6. Manager/officer uses recommendation output in decision workflow.
-7. Repayment schedules are generated for approved loans.
-8. Payment history and overdue states are tracked.
-9. Reporting dashboards present portfolio and operational metrics.
+1. **Login:** Staff logs in through the frontend.
+2. **Authentication:** Backend validates credentials and issues a JWT token, which the frontend sends with all later requests.
+3. **Data entry:** Loan officer manages applicant and application data.
+4. **Risk assessment:** Backend triggers risk assessment by calling the AI endpoints with the application details.
+5. **Storage:** Backend stores risk results and generates recommendation records linked to the application.
+6. **Decision:** Manager/officer uses the risk score, explanation, and recommendation output in the decision workflow, then approves or rejects the application.
+7. **Repayment setup:** Repayment schedules are generated for approved loans.
+8. **Tracking:** Payment history and overdue states are tracked as payments are recorded.
+9. **Reporting:** Reporting dashboards present portfolio and operational metrics for management.
 
 ## Communication Flow: Frontend, Backend, and AI
-- Frontend communicates with backend APIs on port 8080.
+```text
+Frontend (React, Vite)  --HTTP/JSON, JWT-->  Backend (Spring Boot, :8080)  --HTTP/JSON-->  AI Service (FastAPI, :8000)
+                                                      |
+                                                      v
+                                                  MongoDB
+```
+- Frontend communicates with backend APIs on port 8080 using Axios, sending the JWT token with each request.
 - Backend communicates with AI service on port 8000 through `AiServiceClient`.
-- AI outputs return to backend and are persisted/served back to frontend.
-- Frontend does not directly call AI endpoints in the current source structure.
+- AI outputs return to backend, where they are persisted in MongoDB and served back to frontend.
+- Frontend does not directly call AI endpoints in the current source structure. Keeping the AI service behind the backend means authentication, role checks, and data storage are handled in one place, and the AI service is never exposed to end users directly.
 
 ## Local Running Overview
 - AI Service: `uvicorn api.main:app --reload --host 0.0.0.0 --port 8000`
@@ -103,9 +131,11 @@ AIML Integrated/
 - Frontend: `npm run dev`
 - Recommended startup order: AI service -> backend -> frontend
 
+The AI service should start first because the backend depends on it when running risk assessments, and the frontend depends on the backend for all data.
+
 ## Testing Summary
 - Backend test sources are available under `Microfinance-backend/src/test/java` (including repayment unit/integration/controller tests).
-- AI contract test file exists as `microfinance-ai/test_api_contract.py`.
+- AI contract test file exists as `microfinance-ai/test_api_contract.py`, which checks that the AI endpoints accept the expected request format and return the expected response fields.
 - Frontend validation is mainly functional/manual through application pages and API integration.
 
 ## Future Improvements
